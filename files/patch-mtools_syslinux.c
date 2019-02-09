@@ -1,4 +1,4 @@
---- mtools/syslinux.c.orig	2019-02-09 22:49:32 UTC
+--- mtools/syslinux.c.orig	2019-02-09 23:16:17 UTC
 +++ mtools/syslinux.c
 @@ -20,12 +20,12 @@
   */
@@ -28,9 +28,9 @@
      return status;
  }
  
-++/*
-++ * load a file to be used as boot image
-++ */
++/*
++ * load a file to be used as boot image
++ */
 +static int load_boot_image(const char *name)
 +{
 +    int l, fd;
