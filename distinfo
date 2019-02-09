@@ -1,2 +1,3 @@
-SHA256 (syslinux-6.03.tar.xz) = 26d3986d2bea109d5dc0e4f8c4822a459276cf021125e8c9f23c3cca5d8c850e
-SIZE (syslinux-6.03.tar.xz) = 6855224
+TIMESTAMP = 1549744607
+SHA256 (syslinux-6.04-pre3.tar.xz) = 0085ba5b6c8ff83552ff8d07a60bef456172e87dd878a451cbf72a800af72bf7
+SIZE (syslinux-6.04-pre3.tar.xz) = 7047260

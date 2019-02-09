@@ -2,9 +2,10 @@
 # $FreeBSD: head/sysutils/syslinux/Makefile 453238 2017-10-31 14:51:53Z olgeni $
 
 PORTNAME=	syslinux
-PORTVERSION=	6.03
+DISTVERSION=	6.04
+DISTVERSIONSUFFIX=	-pre3
 CATEGORIES=	sysutils
-MASTER_SITES=	KERNEL_ORG/linux/utils/boot/syslinux
+MASTER_SITES=	https://www.zytor.com/pub/syslinux/Testing/6.04/
 
 MAINTAINER=	beastieboy@beastieboy.net
 COMMENT=	Boot loader for the Linux operating system
