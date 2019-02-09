@@ -1,6 +1,6 @@
---- com32/lib/Makefile.orig	2012-08-16 10:07:43.054505830 +0200
-+++ com32/lib/Makefile	2012-08-16 10:08:00.669820080 +0200
-@@ -183,12 +183,12 @@
+--- com32/lib/Makefile.orig	2019-02-09 21:59:48 UTC
++++ com32/lib/Makefile
+@@ -121,12 +121,12 @@ errlist.c: makeerrlist.pl $(SRC)/../include/errno.h
  
  # These files are performance critical, and doesn't compile well with -Os
  sys/vesa/drawtxt.o: sys/vesa/drawtxt.c

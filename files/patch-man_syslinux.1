@@ -1,6 +1,6 @@
---- man/syslinux.1.orig	2010-10-20 21:25:38.000000000 +0200
-+++ man/syslinux.1	2010-11-16 14:50:50.947688888 +0100
-@@ -7,21 +7,23 @@
+--- man/syslinux.1.orig	2019-02-09 22:39:39 UTC
++++ man/syslinux.1
+@@ -7,21 +7,23 @@ syslinux \- install the \s-1SYSLINUX\s+1 bootloader on
  .I device
  .SH DESCRIPTION
  \fBSyslinux\fP is a boot loader for the Linux operating system which
@@ -32,7 +32,7 @@
  LINUX on the boot floppy.  This default can be changed, see the section
  on the \fBsyslinux\fP configuration file.
  .PP
-@@ -36,6 +38,21 @@
+@@ -36,6 +38,21 @@ disk.
  .PP
  \fBSyslinux\fP supports the loading of initial ramdisks (initrd) and the
  bzImage kernel format.
@@ -54,7 +54,7 @@
  .SH OPTIONS
  .TP
  \fB\-i\fP, \fB\-\-install\fP
-@@ -412,9 +429,11 @@
+@@ -379,9 +396,12 @@ in the body of the message. The submission address is 
  .BR lilo (8),
  .BR keytab-lilo.pl (8),
  .BR fdisk (8),
@@ -68,3 +68,4 @@
 -was made by Arthur Korn <arthur@korn.ch>.
 +was made by Arthur Korn <arthur@korn.ch>. FreeBSD-specific notes
 +added by Luigi Rizzo.
++

@@ -1,3 +1,7 @@
+work-work/*
+files-orig/*
+files-changed/*
+
 # Prerequisites
 *.d
 

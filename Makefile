@@ -28,6 +28,9 @@ PLIST_FILES=	bin/syslinux \
 		man/man1/syslinux.1.gz
 PORTDATA=	*
 
+post-extract:
+	${RM} ${WRKSRC}/gnu-efi/lib/Makefile.orig
+
 pre-patch:
 	@(cd ${WRKSRC};							\
 	${FIND} . -type f -exec ${GREP} -le 'elf_i386' \{\} \; |	\

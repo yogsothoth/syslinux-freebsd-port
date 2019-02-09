@@ -1,15 +1,16 @@
---- libinstaller/syslxopt.c.orig	2014-10-06 18:27:44.000000000 +0200
-+++ libinstaller/syslxopt.c	2014-10-21 23:25:13.000000000 +0200
-@@ -45,6 +45,8 @@
+--- libinstaller/syslxopt.c.orig	2019-02-09 22:27:01 UTC
++++ libinstaller/syslxopt.c
+@@ -45,6 +45,9 @@ struct sys_options opt = {
      .activate_partition = 0,
      .force = 0,
      .bootsecfile = NULL,
 +    .verbose = 0,
 +    .bimage = NULL,
++
  };
  
  const struct option long_options[] = {
-@@ -58,7 +60,7 @@
+@@ -58,7 +61,7 @@ const struct option long_options[] = {
      {"stupid", 0, NULL, 's'},
      {"heads", 1, NULL, 'H'},
      {"raid-mode", 0, NULL, 'r'},
@@ -18,7 +19,7 @@
      {"help", 0, NULL, 'h'},
      {"once", 1, NULL, OPT_ONCE},
      {"clear-once", 0, NULL, 'O'},
-@@ -67,10 +69,12 @@
+@@ -67,10 +70,12 @@ const struct option long_options[] = {
      {"mbr", 0, NULL, 'm'},	/* DOS/Win32 only */
      {"active", 0, NULL, 'a'},	/* DOS/Win32 only */
      {"device", 1, NULL, OPT_DEVICE},
@@ -32,18 +33,18 @@
  
  void __attribute__ ((noreturn)) usage(int rv, enum syslinux_mode mode)
  {
-@@ -112,7 +116,9 @@
+@@ -112,7 +117,9 @@ void __attribute__ ((noreturn)) usage(int rv, enum sys
  	    "  --raid       -r  Fall back to the next device on boot failure\n"
  	    "  --once=...   %s  Execute a command once upon boot\n"
  	    "  --clear-once -O  Clear the boot-once command\n"
--	    "  --reset-adv      Reset auxilliary data\n",
-+	    "  --reset-adv      Reset auxilliary data\n"
+-	    "  --reset-adv      Reset auxiliary data\n",
++	    "  --reset-adv      Reset auxiliary data\n"
 +	    "  --bimage=#   -b  Load a custom boot image\n"
 +	    "  --verbose    -v  Increase verbosity level\n",
  	    mode == MODE_SYSLINUX  ? "  " : "-o");
      /*
       * Have to chop this roughly in half for the DOS installer due
-@@ -217,11 +223,17 @@
+@@ -217,11 +224,17 @@ void parse_options(int argc, char *argv[], enum syslin
  		usage(EX_USAGE, mode);
  	    opt.device = optarg;
  	    break;
@@ -53,7 +54,7 @@
  		    "%s " VERSION_STR "  Copyright 1994-" YEAR_STR
  		    " H. Peter Anvin et al\n", program);
  	    exit(0);
-+	case 'v':
++    	case 'v':
 +	    opt.verbose = 1;
 +	    break;
 +	case 'b':

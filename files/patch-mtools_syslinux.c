@@ -1,5 +1,5 @@
---- mtools/syslinux.c.orig	2010-10-20 21:25:38.000000000 +0200
-+++ mtools/syslinux.c	2010-11-16 14:59:55.668749526 +0100
+--- mtools/syslinux.c.orig	2019-02-09 22:49:32 UTC
++++ mtools/syslinux.c
 @@ -20,12 +20,12 @@
   */
  
@@ -15,22 +15,22 @@
  #include <paths.h>
  #include <stdio.h>
  #include <string.h>
-@@ -42,6 +42,8 @@
- #include "setadv.h"
- #include "syslxopt.h"
+@@ -44,6 +44,8 @@
+ #include "syslxfs.h"
+ #include "syslxrw.h"
  
 +int verbose=0;
 +
- char *program;			/* Name of program */
+ const char *program;
  pid_t mypid;
  
-@@ -124,6 +126,53 @@
-     return xpread(pp, buf, secsize, offset);
+@@ -127,6 +129,53 @@ static int move_file(char *filename)
+     return status;
  }
  
-+/*
-+ * load a file to be used as boot image
-+ */
+++/*
+++ * load a file to be used as boot image
+++ */
 +static int load_boot_image(const char *name)
 +{
 +    int l, fd;
@@ -78,7 +78,7 @@
  int main(int argc, char *argv[])
  {
      static unsigned char sectbuf[SECTOR_SIZE];
-@@ -150,9 +199,15 @@
+@@ -153,9 +202,15 @@ int main(int argc, char *argv[])
  
      parse_options(argc, argv, MODE_SYSLINUX);
  
@@ -94,21 +94,20 @@
      if (opt.sectors || opt.heads || opt.reset_adv || opt.set_once
  	|| (opt.update_only > 0) || opt.menu_save) {
  	fprintf(stderr,
-@@ -216,11 +271,9 @@
- 	    /* These are needed for some flash memories */
+@@ -220,10 +275,9 @@ int main(int argc, char *argv[])
  	    "MTOOLS_SKIP_CHECK=1\n"
  	    "MTOOLS_FAT_COMPATIBILITY=1\n"
--	    "drive s:\n"
+ 	    "drive s:\n"
 -	    "  file=\"/proc/%lu/fd/%d\"\n"
 +	    "drive s: file=\"%s\"\n"
  	    "  offset=%llu\n",
 -	    (unsigned long)mypid,
 -	    dev_fd, (unsigned long long)opt.offset);
-+	    opt.device, (unsigned long long)opt.offset);
++    	    opt.device, (unsigned long long)opt.offset);
  
      if (ferror(mtc) || fclose(mtc))
  	die_err(mtools_conf);
-@@ -239,9 +292,11 @@
+@@ -242,9 +296,11 @@ int main(int argc, char *argv[])
      syslinux_reset_adv(syslinux_adv);
  
      /* This command may fail legitimately */
@@ -119,8 +118,8 @@
 +    if (verbose) fprintf(stderr, "doing mcopy\n");
      mtp = popen("mcopy -D o -D O -o - s:/ldlinux.sys", "w");
      if (!mtp ||
- 	fwrite(syslinux_ldlinux, 1, syslinux_ldlinux_len, mtp)
-@@ -259,7 +314,9 @@
+ 	fwrite((const void _force *)syslinux_ldlinux,
+@@ -264,7 +320,9 @@ int main(int argc, char *argv[])
  		       + SECTOR_SIZE - 1) >> SECTOR_SHIFT;
      sectors = calloc(ldlinux_sectors, sizeof *sectors);
      fs = libfat_open(libfat_xpread, dev_fd);
@@ -130,7 +129,7 @@
      secp = sectors;
      nsectors = 0;
      s = libfat_clustertosector(fs, ldlinux_cluster);
-@@ -267,6 +324,7 @@
+@@ -272,6 +330,7 @@ int main(int argc, char *argv[])
  	*secp++ = s;
  	nsectors++;
  	s = libfat_nextsector(fs, s);
